@@ -48,15 +48,12 @@ $(document).ready(function () {
         formData.append('upload_preset', CLOUDNARY_UPLOAD_PRESET)
 
         axios({
-            // see line 25
             url: CLOUDNARY_URL,
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             data: formData
-
-            //This is just a callback function
         }).then(function (response) {
             var imgurl = response.data.secure_url
 
@@ -89,20 +86,10 @@ $(document).ready(function () {
 
             })
         }
-        // callUploadSuccessModal()
+        
         clearForm()
+    
     })
-
-    // function callUploadSuccessModal() {
-
-    //     $("#successful-submit-Modal").modal('show')
-    //     setTimeout(function () {
-    //         $("#successful-submit-Modal").modal('hide');
-    //     }, 3000);
-
-
-
-    // }
 
     function clearForm() {
         $('#imageTitle').val("")

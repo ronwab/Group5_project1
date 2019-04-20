@@ -15,12 +15,10 @@ function initMap() {
     var myLatLng = firebase.database().ref("/");
 
     myLatLng.on("value", function (snapShot) {
-        // TODO:
-        // Firebase values coming here
-        var data = snapShot.val(); // { rahdnkey: { locationCoodsvals: {} }, anyotherrahdnkey: { locationCoodsvals: {} } }
+        
+        var data = snapShot.val(); 
 
         for (var key in data) {
-            // console.log(data);
             userLocation = data[key].locationCoodsvals;
             pinName = data[key].userNameField;
             imageurl = data[key].urlfield;
@@ -29,16 +27,11 @@ function initMap() {
             console.log(userLocation);
             console.log(pinName);
             console.log(imageurl);
-
             console.log(imageTitleField);
 
-
-
-
-            contentString = `<h4>Title: ${data[key].imageTitleField}</h4> <br> <img src="${imageurl}" width="180px"> <br> <h5>Artist: ${pinName}<h/5><br> <p>Description: ${DescriptionField}</p>`;
+            contentString = `<h4>Piece: ${data[key].imageTitleField}</h4> <br> <img src="${imageurl}" width="180px"> <br> <h5>Artist: ${pinName}<h/5><br> <p>Description: ${DescriptionField}</p>`;
             addToMarker(userLocation, pinName, contentString);
         }
-        console.log(firebase.database().ref("/"))
 
         function addToMarker(userLocation, pinName, contentString) {
 
@@ -46,17 +39,14 @@ function initMap() {
                 content: contentString
             });
 
-            // console.log("My Lat LG: ", userLocation);
             var marker = new google.maps.Marker({
                 position: userLocation,
                 map: map,
-                // title: pinName
                 title: pinName
             });
 
             marker.addListener("click", function () {
                 infowindow.open(map, marker);
-                console.log("pinName " + pinName);
             });
         }
     });
